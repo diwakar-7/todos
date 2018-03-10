@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Todo</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <style>
+        #auth {
+            display: grid;
+            grid-template-columns: auto auto;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 20px;
+        }
+        form {
+            grid-column: 1 / 3;
+            grid-row: 2 / 3;
+            display: none;
+            grid-gap: 2em;
+            padding: 2em;
+            text-align: center;
+            box-shadow: inset 0 -2px 2px 0 #555;
+        }
+        label {
+            padding: 8px;
+            text-align: center;
+            box-shadow: inset 0 0 2px 0 #555;
+        }
+        .switch:checked + label {
+            background: #555;
+            color: #fff;
+        }
+        .switch:checked + label + form {
+            display: inline-grid;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="auth">
+            <input type="radio" name="toggle" id="c11" class="switch" hidden checked>
+            <label for="c11">Sign in</label>
+            <form action="/user/signin" method="POST" id="signin">
+                <span class="error">error</span>
+                <input type="text" name="username" placeholder="username" required>
+                <input type="password" name="password" placeholder="password" required>
+                <button>Sign in</button>
+            </form>
+
+            <input type="radio" name="toggle" id="c12" class="switch" hidden>
+            <label for="c12">Sign up</label>
+            <form action="/user/signup" method="POST" id="signup">
+                <span class="error">error</span>
+                <input type="text" name="username" placeholder="username" required>
+                <input type="password" name="password" placeholder="password" required>
+                <button>Sign up</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/index.js"></script>
+</body>
+</html>

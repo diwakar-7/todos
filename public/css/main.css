@@ -1,0 +1,45 @@
+*, ::before, ::after {
+    box-sizing: border-box;
+}
+body {
+  display: grid;
+  justify-content: center;
+  color: #1e1e1e;
+}
+header.main ~ .container{
+    margin-top: 48px;
+}
+.error {
+    color: red;
+    opacity: 0;
+}
+.error.visible {
+    opacity: 1;
+    transition: opacity 1s;
+}
+button {
+    height: 34px;
+}
+button:disabled{
+    position: relative;
+}
+button:disabled::after {
+    content: ' ';
+    display: inline-flex;
+    width: 17px;
+    height: 17px;
+    border: 2px solid;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: rotate 1s infinite linear;
+    position: absolute;
+    right: 0;
+}
+@keyframes rotate {
+	0% {
+		transform: rotate(0deg)
+	}
+	100% {
+		transform: rotate(360deg)
+	}
+}

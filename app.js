@@ -1,0 +1,15 @@
+const express = require('express')
+const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
+const app = express()
+const {identity} = require('./utils/auth')
+
+app.use(bodyParser.urlencoded({extended: true}))
+app.use(cookieParser())
+app.use(identity)
+app.use(express.static(`${__dirname}/public`))
+app.use('/', require('./routes/index'))
+app.use('/user', require('./routes/user'))
+app.use('/todo', require('./routes/todo'))
+
+app.listen(9000)

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Todo</title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<style>
+    header {
+        padding: 10px;
+        margin-bottom: 10px;
+        background: #20232A;
+        text-align: right;
+        color: #fff;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+    }
+    ul {
+        list-style-type: none;
+        padding: 0
+    }
+    li {
+        margin: 10px
+    }
+    i {
+        margin-right: 24px;
+        cursor: pointer;
+    }
+    a {
+        color: inherit;
+        cursor: pointer;
+    }
+</style>
+<body>
+    <header class="main"><a href="/user/signout">Sign out</a></header>
+    <div class="container">
+        <form >
+            <input type="text" name="text" placeholder="todo..." required>
+            <button>add</button>
+        </form>
+        <ul id="todo"></ul>
+    </div>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/todo.js"></script>
+</body>
+</html>

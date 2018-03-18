@@ -1,9 +1,14 @@
 const [todoForm] = document.forms
 const todoList = document.getElementById('todo')
 
-const reducer = (list, todo) => `${list}<li id='${todo.id}'><i>X</i>${todo.text}</li>`
+const reducer = (list, todo) => `
+  ${list}<li>
+    <input class="text" type="text" value="${todo.text}" id='${todo.id}' readonly>
+    <b class='edit'>&#128393;</b>
+    <b class='del'>X</b>
+  </li>`
 
-const getTodos = () => {
+const getTodo = () => {
   fetch('/todo', {credentials: 'same-origin'})
     .then(status)
     .then((res) => res.json())
@@ -13,41 +18,70 @@ const getTodos = () => {
     })
 }
 
-const addTodos = (todoText) => fetch('/todo/insert', {
+const addTodo = (todoText) => fetch('/todo/insert', {
   method: 'post',
   headers: {'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'},
   credentials: 'same-origin',
   body: `text=${todoText}`
 })
 
-const deleteTodos = (todoId) => fetch('/todo/delete', {
+const updateTodo = (todoText, todoId) => fetch('/todo/update', {
+  method: 'put',
+  headers: {'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+  credentials: 'same-origin',
+  body: `text=${todoText}&todoId=${todoId}`
+})
+
+const deleteTodo = (todoId) => fetch('/todo/delete', {
   method: 'delete',
   headers: {'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'},
   credentials: 'same-origin',
   body: `id=${todoId}`
 })
 
-getTodos()
+getTodo()
 
 todoForm.addEventListener('submit', (event) => {
   event.preventDefault()
   const todoText = event.target.elements.text.value
-  addTodos(todoText)
+  addTodo(todoText)
     .then(status)
     .then((res) => res.json())
     .then((todo) => {
-      todoList.innerHTML += `<li id='${todo.id}'><i>X</i>${todoText}</li>`
+      todoList.innerHTML += `
+        <li>
+          <input class="text" type="text" value="${todoText}" id='${todo.id}' readonly>
+          <b class='edit'>&#128393;</b>
+          <b class='del'>X</b>
+        </li>`
       event.target.elements.text.value = ''
     })
 })
 
 todoList.addEventListener('click', (event) => {
-  if (event.target.tagName === 'I') {
-    const todo = event.target.parentNode
-    deleteTodos(todo.id)
+  const todo = event.target.parentNode.firstElementChild
+  if (event.target.classList.contains('del')) {
+    deleteTodo(todo.id)
       .then(status)
       .then(() => {
-        todoList.removeChild(todo)
+        todoList.removeChild(todo.parentNode)
       })
+  } else if (event.target.classList.contains('edit')) {
+    todoFocus(todo)
   }
 })
+
+const todoFocus = (todo) => {
+  todo.removeAttribute('readonly')
+  todo.focus()
+  todo.selectionStart = todo.value.length
+  todo.selectionEnd = todo.value.length
+  todo.addEventListener('blur', todoBlur)
+}
+
+const todoBlur = (event) => {
+  const todo = event.target
+  todo.setAttribute('readonly', '')
+  todo.removeEventListener('blur', blur)
+  updateTodo(todo.value, todo.id)
+}

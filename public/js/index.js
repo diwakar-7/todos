@@ -1,6 +1,6 @@
 const Form = function Form (form) {
   this.error = form.querySelector('.error')
-  this.button = form.querySelector('button')
+  this.button = form.querySelector('[type = submit]')
   form.addEventListener('submit', this.submit.bind(this))
 }
 

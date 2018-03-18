@@ -26,6 +26,19 @@ const addTodo = (data) => {
   })
 }
 
+const updateTodo = (data) => {
+  const sql = 'update todos set text = ? where id = ?'
+  return new Promise((resolve, reject) => {
+    conn.query(sql, data, (err, result) => {
+      if (err) {
+        reject(err)
+      } else {
+        resolve(result)
+      }
+    })
+  })
+}
+
 const removeTodo = (data) => {
   const sql = 'delete from todos where id=?'
   return new Promise((resolve, reject) => {
@@ -42,5 +55,6 @@ const removeTodo = (data) => {
 module.exports = {
   getTodo,
   addTodo,
+  updateTodo,
   removeTodo
 }

@@ -21,6 +21,16 @@ router.post('/insert', (req, res) => {
     .catch(() => res.sendStatus(500))
 })
 
+router.put('/update', (req, res) => {
+  const data = [
+    req.body.text,
+    req.body.todoId
+  ]
+  Todo.updateTodo(data)
+    .then((result) => res.send())
+    .catch(() => res.sendStatus(500))
+})
+
 router.delete('/delete', (req, res) => {
   const data = [req.body.id]
   Todo.removeTodo(data)

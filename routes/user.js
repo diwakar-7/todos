@@ -16,7 +16,7 @@ router.post('/signup', (req, res) => {
   User.getUser(data)
     .then((users) => {
       if (users.length === 1) {
-        // User already signed up
+        res.statusMessage = 'Username already registered'
         return res.sendStatus(422)
       }
 
@@ -46,13 +46,15 @@ router.post('/signin', (req, res) => {
     .then((users) => {
       if (users.length === 0) {
         // User not signed up
+        res.statusMessage = 'Invalid username or password'
         return res.sendStatus(422)
       }
 
       bcrypt.compare(req.body.password, users[0].password)
         .then((result) => {
           if (!result) {
-            return res.sendStatus(422)
+        res.statusMessage = 'Invalid username or password'
+        return res.sendStatus(422)
           }
           const token = generateToken(users[0].id)
           res.cookie('jwt', token, {

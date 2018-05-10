@@ -4,7 +4,7 @@ const todoList = document.getElementById('todo')
 const reducer = (list, todo) => `
   ${list}<li>
     <input class="text" type="text" value="${todo.text}" id='${todo.id}' readonly>
-    <b class='edit'>&#128393;</b>
+    <b class='edit'>I</b>
     <b class='del'>X</b>
   </li>`
 
@@ -51,7 +51,7 @@ todoForm.addEventListener('submit', (event) => {
       todoList.innerHTML += `
         <li>
           <input class="text" type="text" value="${todoText}" id='${todo.id}' readonly>
-          <b class='edit'>&#128393;</b>
+          <b class='edit'>I</b>
           <b class='del'>X</b>
         </li>`
       event.target.elements.text.value = ''

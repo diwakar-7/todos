@@ -6,46 +6,47 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Todo</title>
   <link rel="stylesheet" href="/css/main.css">
+  <style>
+    header {
+      padding: 10px;
+      margin-bottom: 10px;
+      background: #20232A;
+      text-align: right;
+      color: #fff;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    form, #todo li {
+      display: grid;
+      grid-column-gap: 16px;
+      grid-template-columns: 192px 32px 32px;
+    }
+    .edit, .del {
+      width: 32px;
+      height: 32px;
+      padding: 4px;
+      cursor: pointer;
+      text-align: center;
+    }
+    a {
+      color: inherit;
+      cursor: pointer;
+    }
+    input.text:not(:focus) {
+      border-color: transparent;
+      background: transparent;
+    }
+  </style>
 </head>
-<style>
-  header {
-    padding: 10px;
-    margin-bottom: 10px;
-    background: #20232A;
-    text-align: right;
-    color: #fff;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-  }
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  form, #todo li {
-    display: grid;
-    grid-column-gap: 16px;
-    grid-template-columns: 192px 32px 32px;
-  }
-  .edit, .del {
-    width: 32px;
-    height: 32px;
-    padding: 4px;
-    cursor: pointer;
-    text-align: center;
-  }
-  a {
-    color: inherit;
-    cursor: pointer;
-  }
-  .text:read-only {
-    border-color: transparent
-  }
-</style>
 <body>
   <header class="main"><a href="/user/signout">Sign out</a></header>
-  <div class="container">
+  <div class="container" style="margin-top: 48px">
     <form>
       <input type="text" name="text" placeholder="todo..." required>
       <input type="submit" value="add" style="grid-column: 2/4">
